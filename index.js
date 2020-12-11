@@ -1,14 +1,27 @@
 const http = require('http');
 
-const app = exports = module.exports = {};
+module.exports = function(config){
+  let app = {};
 
-app.handler = function handler(req, res){
-  let url = req.url;
-  let data = {url};
-  res.end(JSON.stringify(data));
-};
+  app.GET = config.routes.get;
+  app.POST = config.routes.post;
 
-app.listen = function listen(){
-  let server = http.createServer(this.handler);
-  return server.listen.apply(server, arguments);
+  app.listener = function(req,res){
+    console.log(this);
+    let {url, method} = req;
+
+    let route = app[method][url];
+    if(route){
+      let result = route();
+      res.end(result);
+    }else{
+      res.end('404 PaGe NoT FoUnD.');
+    }
+  }
+
+  app.server = http.createServer(app.listener);
+
+  app.server.listen(8080)
+
+  return app;
 };
