@@ -1,15 +1,18 @@
-const tt = require("./index.js");
+const {app} = require("./index.js");
 
-const app = tt({
+app({
   port: 8080,
-  routes: {
-    get: {
-      '/': function(){
-        return "Home";
-      },
-      '/api': function(){
-        return "API";
-      }
+  get: {
+    '/': function(){
+      return "Home";
+    },
+    '/about': function(){
+      return "About";
+    }
+  },
+  error: {
+    404: function(){
+      return "404 Page not found.";
     }
   }
-})
+});

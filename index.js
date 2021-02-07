@@ -1,27 +1,33 @@
 const http = require('http');
 
-module.exports = function(config){
-  let app = {};
+const app = function(config){
+  var App = {};
 
-  app.GET = config.routes.get;
-  app.POST = config.routes.post;
+  App.GET = config.get;
+  App.POST = config.post;
+  App.ERROR = config.error;
 
-  app.listener = function(req,res){
-    console.log(this);
-    let {url, method} = req;
+  App.listener = function(req,res){
+    var {url, method} = req;
 
-    let route = app[method][url];
+    var route = App[method][url];
     if(route){
-      let result = route();
+      var result = route();
       res.end(result);
     }else{
-      res.end('404 PaGe NoT FoUnD.');
+      var errorHandler = App.ERROR[404]();
+      res.statusCode = 404;
+      res.end(errorHandler);
     }
   }
 
-  app.server = http.createServer(app.listener);
+  App.server = http.createServer(App.listener);
 
-  app.server.listen(8080)
+  App.server.listen(8080)
 
   return app;
 };
+
+module.exports = {
+  app
+}
