@@ -1,12 +1,7 @@
 # twinturbo
-<<<<<<< HEAD
 An attempt to make a fast framework for basic functionality and no bloat.
 
 ```javascript
-=======
-
-```
->>>>>>> c8f60606ff04da194e3bf9f15a3d296987253670
 const {app} = require('twinturbo')
 
 app({
@@ -14,12 +9,6 @@ app({
     get: {
         '/': function(){
             return "<h1>Home</h1>";
-<<<<<<< HEAD
-=======
-        },
-        '/cpu-list': function(){
-            return "<h1>CPU List</h1>";
->>>>>>> c8f60606ff04da194e3bf9f15a3d296987253670
         }
     },
     error: {
@@ -29,7 +18,6 @@ app({
     }
 })
 ```
-<<<<<<< HEAD
 
 ## app({port, get, error})
 Required keys: `{port, get, error}`.
@@ -138,5 +126,3 @@ render.template('<h1>Hello World</h1>');
 // or
 render.template( render.getHtml('home') );
 ```
-=======
->>>>>>> c8f60606ff04da194e3bf9f15a3d296987253670
