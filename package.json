@@ -4,5 +4,9 @@
   "description": "Fast and minimalistic web server",
   "main": "index.js",
   "author": "Damian Toczek",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/damiantoczek/twinturbo.git"
+  }
 }

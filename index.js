@@ -12,22 +12,56 @@ const app = function(config){
 
     var route = App[method][url];
     if(route){
-      var result = route();
+      var result = route(req, res);
       res.end(result);
     }else{
       var errorHandler = App.ERROR[404]();
       res.statusCode = 404;
       res.end(errorHandler);
     }
-  }
+  };
 
   App.server = http.createServer(App.listener);
 
-  App.server.listen(8080)
+  App.server.listen(config.port);
 
-  return app;
+  return App;
+};
+
+const render = function(){
+  var Render = {};
+
+  Render._html = {};
+  Render._values = {};
+
+  Render.setValue = function(key, value, force){
+    if(this._values[key] === undefined || force === true){
+      this._values[key] = value;
+    }else{
+      console.log(`${key} key already exists, to overwrite use 'true' as thrid argument.`);
+    }
+  };
+
+  Render.getValue = function(key){
+    return this._values[key];
+  };
+
+  Render.setHtml = function(key, html){
+    this._html[key] = html.replaceAll(RegExp(/(?!>)[\s\n]+(?=<)/, "g"),'');
+  };
+
+  Render.getHtml = function(key){
+    return this._html[key];
+  };
+
+  Render.setView = function(key, viewFunc){
+    this[key] = viewFunc;
+  };
+
+  return Render;
 };
 
 module.exports = {
-  app
-}
+  app,
+  render
+};
