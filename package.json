@@ -1,6 +1,6 @@
 {
   "name": "twinturbo",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Fast and minimalistic web server",
   "main": "index.js",
   "author": "Damian Toczek",

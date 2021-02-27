@@ -12,12 +12,10 @@ const app = function(config){
 
     var route = App[method][url];
     if(route){
-      var result = route(req, res);
-      res.end(result);
+      res.end(route(req, res));
     }else{
-      var errorHandler = App.ERROR[404]();
       res.statusCode = 404;
-      res.end(errorHandler);
+      res.end(App.ERROR[404]());
     }
   };
 
@@ -38,7 +36,7 @@ const render = function(){
     if(this._values[key] === undefined || force === true){
       this._values[key] = value;
     }else{
-      console.log(`${key} key already exists, to overwrite use 'true' as thrid argument.`);
+      console.log(`${key} key already exists, to overwrite use 'true' as third argument.`);
     }
   };
 
