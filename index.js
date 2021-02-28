@@ -13,10 +13,10 @@ const app = function(config){
   };
 
   // Cache all routes for faster checking.
-  App.routesList = [
+  App.routesList = config.post ? [
     ...Object.keys(config.get),
     ...Object.keys(config.post)
-  ]
+  ] : Object.keys(config.get);
 
   // Stored routes are stored as key:func pairs.
   App.getRoutes = config.get;
@@ -43,7 +43,7 @@ const app = function(config){
       req.on('data', chunk => {
         rawBodyString += chunk;
       });
-      
+
       req.on('end', () => {
         var body = {};
 
